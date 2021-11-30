@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Crypt;
 
 class SchoolController extends Controller
 {
@@ -53,9 +55,20 @@ class SchoolController extends Controller
             'name' => 'required',
             'detail' => 'required',
         ]);
-    
-        School::create($request->all());
-    
+        //User::create($request->all());
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'type'    => 'school',
+            'password'    => Crypt::encrypt($request->password)
+            ]);
+        School::create([
+            'name'     => $request->name,
+            'detail'    => $request->detail,
+            'user_id'    => $user->id
+            ]);
+         
+
         return redirect()->route('schools.index')
                         ->with('success','School created successfully.');
     }

@@ -7,4 +7,4 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<img src="admin.php" alt="Roles and Permissions">
+<img src="admin.png" alt="Roles and Permissions">
