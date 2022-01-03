@@ -6,6 +6,7 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Crypt;
+use Auth;
 
 class SchoolController extends Controller
 {
@@ -28,7 +29,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::latest()->paginate(5);
+        $userId = Auth::user()->id;
+        $schools = School::where('created_by',$userId)->latest()->paginate(5);
         return view('schools.index',compact('schools'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -51,22 +53,27 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
+        
         request()->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
         //User::create($request->all());
+        $userId = Auth::user()->id;
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'type'    => 'school',
             'password'    => Crypt::encrypt($request->password)
             ]);
+        $user->assignRole(['school']);
         School::create([
             'name'     => $request->name,
             'detail'    => $request->detail,
-            'user_id'    => $user->id
+            'user_id'    => $user->id,
+            'created_by' => $userId
             ]);
+        
          
 
         return redirect()->route('schools.index')

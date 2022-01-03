@@ -9,6 +9,6 @@ class School extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'detail','user_id'
+        'name', 'detail','user_id','created_by'
     ];
 }

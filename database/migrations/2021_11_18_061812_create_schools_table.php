@@ -18,6 +18,7 @@ class CreateSchoolsTable extends Migration
             $table->string('name');
             $table->text('detail');
             $table->bigInteger('user_id')->nullable();
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
         });
     }
