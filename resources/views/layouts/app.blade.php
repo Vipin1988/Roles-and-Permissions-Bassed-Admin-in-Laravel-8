@@ -79,7 +79,7 @@
                         @else
                          {{Auth::user()->getRoleNames()}}
                           @if(in_array('school',Auth::user()->getRoleNames()->toArray()))
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
+                            <li><a class="nav-link" href="{{ route('students.index') }}">Manage Students</a></li>
                           @endif
                           @if(in_array('Admin',Auth::user()->getRoleNames()->toArray()))
                             <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
